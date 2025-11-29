@@ -21,13 +21,15 @@ public class BigNumber {
 
     /**
      *
-     * @param @throws Exception
+     * @param data List of digits.
+     * @throws Exception If data is invalid.
      */
     public BigNumber(byte[] data) throws Exception {
+        int symbol = (data.length == 0) ? 0 : ((data[0] < 0) ? -1 : 1);
 
         for (byte digit : data) {
 
-            if (digit > 9 || digit < -9) {
+            if (digit > 9 || digit < -9 || symbol * digit < 0) {
 
                 throw new Exception("Invalid number entered!");
 
@@ -39,6 +41,10 @@ public class BigNumber {
 
     }
 
+    /**
+     * @param number String of the number.
+     * @throws Exception If string is invalid or can't cast to digits.
+     */
     public BigNumber(String number) throws Exception {
 
         byte symbol = 1;
@@ -75,6 +81,10 @@ public class BigNumber {
 
     }
 
+    /**
+     *
+     * @param number Integer of the number.
+     */
     public BigNumber(int number) {
 
         int copy = number;
@@ -103,6 +113,10 @@ public class BigNumber {
 
     }
 
+    /**
+     *
+     * @param number Long integer of the number.
+     */
     public BigNumber(long number) {
 
         long copy = number;
