@@ -40,16 +40,21 @@ public class BigNumber {
     }
 
     public BigNumber(String number) throws Exception {
+
         byte symbol = 1;
         int length = number.length();
         int i = 0;
 
         if (length > 0) {
+
             if (number.charAt(0) == '-') {
+
                 symbol = -1;
                 --length;
                 i = 1;
+
             }
+
         }
 
         this.data = new byte[length];
@@ -71,12 +76,15 @@ public class BigNumber {
     }
 
     public BigNumber(int number) {
+
         int copy = number;
         byte symbol = 1;
 
         if (copy < 0) {
+
             symbol = -1;
             copy = -1 * copy;
+
         }
 
         int n = (copy + "").length();
@@ -92,16 +100,20 @@ public class BigNumber {
         }
 
         this.data = new byte[n];
+
     }
 
     public BigNumber(long number) {
+
         long copy = number;
 
         byte symbol = 1;
 
         if (copy < 0) {
+
             symbol = -1;
             copy = -1 * copy;
+
         }
 
         int n = (copy + "").length();
@@ -117,9 +129,11 @@ public class BigNumber {
         }
 
         this.data = new byte[n];
+
     }
 
     public void shiftL(int n) {
+
         int oldLength = this.data.length;
         int newLength = this.data.length + n;
 
@@ -130,13 +144,17 @@ public class BigNumber {
             newData[i] = this.data[i];
 
         }
+
     }
 
     public void shiftL() {
+
         this.shiftL(1);
+
     }
 
     public void shiftR(int n) {
+
         int oldLength = this.data.length;
         int newLength = this.data.length - n;
 
@@ -150,14 +168,29 @@ public class BigNumber {
     }
 
     public void shiftR() {
+
         this.shiftR(1);
+
     }
 
     public String toString() {
+
         String out = "";
 
-        for (byte digit : this.data) {
-            out = out + digit;
+        if (this.data.length != 0) {
+
+            if (this.data[0] < 0) {
+
+                out = "-";
+
+            }
+
+        }
+
+        for (int digit : this.data) {
+
+            out = out + (Math.abs(digit));
+
         }
 
         return out;
