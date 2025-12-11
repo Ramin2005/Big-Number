@@ -162,16 +162,14 @@ public class BigNumber {
 
     public void shiftL(int n) {
 
-        int oldLength = this.data.length;
-        int newLength = this.data.length + n;
-
+        int oldLength = this.length;
+        int newLength = oldLength + n;
         byte[] newData = new byte[newLength];
 
-        for (int i = 0; i < oldLength; i++) {
+        System.arraycopy(this.data, 0, newData, 0, oldLength);
 
-            newData[i] = this.data[i];
-
-        }
+        this.data = newData.clone();
+        this.length = newLength;
 
     }
 
@@ -183,16 +181,26 @@ public class BigNumber {
 
     public void shiftR(int n) {
 
-        int oldLength = this.data.length;
-        int newLength = this.data.length - n;
+        int oldLength = this.length;
+        int newLength = oldLength - n;
 
-        byte[] newData = new byte[newLength];
+        if (newLength < 1) {
 
-        for (int i = 0; i < newLength; i++) {
+            this.data = null;
+            this.length = 0;
+            this.isPositive = true;
 
-            newData[i] = this.data[i];
+        } else {
+
+            byte[] newData = new byte[newLength];
+
+            System.arraycopy(this.data, 0, newData, 0, newLength);
+
+            this.data = newData.clone();
+            this.length = newLength;
 
         }
+
     }
 
     public void shiftR() {
@@ -205,9 +213,9 @@ public class BigNumber {
 
         String out = "";
 
-        if (this.data.length != 0) {
+        if (this.length != 0) {
 
-            if (this.data[0] < 0) {
+            if (!this.isPositive) {
 
                 out = "-";
 
