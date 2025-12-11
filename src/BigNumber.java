@@ -9,6 +9,8 @@ public class BigNumber {
 
     //non-static variables:
     private byte[] data;
+    private int length;
+    private boolean isPositive = true;
 
     // non-static methods and constructor:
     /**
@@ -16,7 +18,7 @@ public class BigNumber {
      * Default constructor.
      */
     public BigNumber() {
-
+        this.length = 0;
     }
 
     /**
@@ -25,6 +27,7 @@ public class BigNumber {
      * @throws Exception If data is invalid.
      */
     public BigNumber(byte[] data) throws Exception {
+
         int symbol = (data.length == 0) ? 0 : ((data[0] < 0) ? -1 : 1);
 
         for (byte digit : data) {
@@ -38,6 +41,8 @@ public class BigNumber {
         }
 
         this.data = data.clone();
+        this.length = data.length;
+        this.isPositive = symbol >= 0;
 
     }
 
@@ -48,101 +53,122 @@ public class BigNumber {
     public BigNumber(String number) throws Exception {
 
         byte symbol = 1;
-        int length = number.length();
+        int stringLength = number.length();
         int i = 0;
 
-        if (length > 0) {
+        if (stringLength > 0) {
 
             if (number.charAt(0) == '-') {
 
                 symbol = -1;
-                --length;
                 i = 1;
 
             }
 
         }
 
-        this.data = new byte[length];
+        byte[] temp = new byte[length];
 
-        for (; i < number.length(); i++) {
+        for (; i < stringLength; i++) {
 
-            char temp = number.charAt(i);
+            char tempChar = number.charAt(i);
 
-            if (!Character.isDigit(temp)) {
-
-                this.data = null;
+            if (!Character.isDigit(tempChar)) {
 
                 throw new Exception("Invalid number entered!");
             }
 
-            this.data[i] = (byte) (((byte) (Integer.parseInt(temp + ""))) * symbol);
+            temp[i] = (byte) (((byte) (Integer.parseInt(tempChar + ""))) * symbol);
         }
+
+        this.data = temp.clone();
+        this.length = stringLength - 1;
+        this.isPositive = symbol > 0;
 
     }
 
     /**
      *
      * @param number Integer of the number.
+     * @throws Exception If string is invalid or can't cast to digits.
      */
-    public BigNumber(int number) {
+    public BigNumber(int number) throws Exception {
 
-        int copy = number;
+        String stringNumber = number + "";
         byte symbol = 1;
+        int stringLength = stringNumber.length();
+        int i = 0;
 
-        if (copy < 0) {
+        if (stringLength > 0) {
 
-            symbol = -1;
-            copy = -1 * copy;
+            if (stringNumber.charAt(0) == '-') {
 
-        }
+                symbol = -1;
+                i = 1;
 
-        int n = (copy + "").length();
-
-        for (int i = (n - 1); i > -1; i--) {
-
-            byte temp = (byte) (copy % 10);
-
-            this.data[i] = (byte) (temp * symbol);
-
-            copy = (copy - temp) / 10;
+            }
 
         }
 
-        this.data = new byte[n];
+        byte[] temp = new byte[length];
 
+        for (; i < stringLength; i++) {
+
+            char tempChar = stringNumber.charAt(i);
+
+            if (!Character.isDigit(tempChar)) {
+
+                throw new Exception("Invalid number entered!");
+            }
+
+            temp[i] = (byte) (((byte) (Integer.parseInt(tempChar + ""))) * symbol);
+        }
+
+        this.data = temp.clone();
+        this.length = stringLength - 1;
+        this.isPositive = symbol > 0;
     }
 
     /**
      *
      * @param number Long integer of the number.
+     * @throws Exception If string is invalid or can't cast to digits.
      */
-    public BigNumber(long number) {
+    public BigNumber(long number) throws Exception {
 
-        long copy = number;
-
+        String stringNumber = number + "";
         byte symbol = 1;
+        int stringLength = stringNumber.length();
+        int i = 0;
 
-        if (copy < 0) {
+        if (stringLength > 0) {
 
-            symbol = -1;
-            copy = -1 * copy;
+            if (stringNumber.charAt(0) == '-') {
 
-        }
+                symbol = -1;
+                i = 1;
 
-        int n = (copy + "").length();
-
-        for (int i = (n - 1); i > -1; i--) {
-
-            byte temp = (byte) (copy % 10);
-
-            this.data[i] = (byte) (temp * symbol);
-
-            copy = (copy - temp) / 10;
+            }
 
         }
 
-        this.data = new byte[n];
+        byte[] temp = new byte[length];
+
+        for (; i < stringLength; i++) {
+
+            char tempChar = stringNumber.charAt(i);
+
+            if (!Character.isDigit(tempChar)) {
+
+                throw new Exception("Invalid number entered!");
+            }
+
+            temp[i] = (byte) (((byte) (Integer.parseInt(tempChar + ""))) * symbol);
+        }
+
+        this.data = temp.clone();
+        this.length = stringLength - 1;
+        this.isPositive = symbol > 0;
 
     }
 
