@@ -90,9 +90,8 @@ public class BigNumber {
     /**
      *
      * @param number Integer of the number.
-     * @throws Exception If string is invalid or can't cast to digits.
      */
-    public BigNumber(int number) throws Exception {
+    public BigNumber(int number) {
 
         String stringNumber = number + "";
         byte symbol = 1;
@@ -115,13 +114,8 @@ public class BigNumber {
         for (; i < stringLength; i++) {
 
             char tempChar = stringNumber.charAt(i);
-
-            if (!Character.isDigit(tempChar)) {
-
-                throw new Exception("Invalid number entered!");
-            }
-
             temp[i] = (byte) (((byte) (Integer.parseInt(tempChar + ""))) * symbol);
+
         }
 
         this.data = temp.clone();
@@ -132,9 +126,8 @@ public class BigNumber {
     /**
      *
      * @param number Long integer of the number.
-     * @throws Exception If string is invalid or can't cast to digits.
      */
-    public BigNumber(long number) throws Exception {
+    public BigNumber(long number) {
 
         String stringNumber = number + "";
         byte symbol = 1;
@@ -157,13 +150,8 @@ public class BigNumber {
         for (; i < stringLength; i++) {
 
             char tempChar = stringNumber.charAt(i);
-
-            if (!Character.isDigit(tempChar)) {
-
-                throw new Exception("Invalid number entered!");
-            }
-
             temp[i] = (byte) (((byte) (Integer.parseInt(tempChar + ""))) * symbol);
+
         }
 
         this.data = temp.clone();
