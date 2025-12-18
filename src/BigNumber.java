@@ -246,6 +246,10 @@ public class BigNumber {
         return negative;
     }
 
+    /**
+     *
+     * @return String of number.
+     */
     @Override
     public String toString() {
 
