@@ -47,16 +47,25 @@ public class BigNumber {
         int j = data.length;
 
         while (i < j) {
+
             if (data[i] == 0) {
+
                 ++i;
+
             } else {
+
                 break;
+
             }
+
         }
 
         byte[] temp = new byte[j - i];
+
         for (int k = 0; k < j - i; k++) {
+
             temp[k] = data[k + i];
+
         }
 
         this.data = temp.clone();
@@ -86,22 +95,40 @@ public class BigNumber {
 
         }
 
-        byte[] temp = new byte[length];
+        if (stringLength - i > 0) {
 
-        for (; i < stringLength; i++) {
+            while (i < stringLength) {
 
-            char tempChar = number.charAt(i);
+                if (number.charAt(i) == '0') {
+
+                    ++i;
+
+                } else {
+
+                    break;
+
+                }
+
+            }
+
+        }
+
+        byte[] temp = new byte[stringLength - i];
+
+        for (int k = 0; k < stringLength - i; k++) {
+
+            char tempChar = number.charAt(i + k);
 
             if (!Character.isDigit(tempChar)) {
 
                 throw new RuntimeException("Invalid number entered!");
             }
 
-            temp[i] = (byte) (((byte) (Integer.parseInt(tempChar + ""))) * symbol);
+            temp[k] = (byte) (((byte) (Integer.parseInt(tempChar + ""))) * symbol);
         }
 
         this.data = temp.clone();
-        this.length = stringLength - 1;
+        this.length = temp.length;
         this.isPositive = symbol > 0;
 
     }
