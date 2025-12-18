@@ -24,9 +24,9 @@ public class BigNumber {
     /**
      *
      * @param data List of digits.
-     * @throws Exception If data is invalid.
+     * @throws RuntimeException If data is invalid.
      */
-    public BigNumber(byte[] data) throws Exception {
+    public BigNumber(byte[] data) throws RuntimeException {
 
         int symbol = (data.length == 0) ? 0 : ((data[0] < 0) ? -1 : 1);
 
@@ -34,7 +34,7 @@ public class BigNumber {
 
             if (digit > 9 || digit < -9 || symbol * digit < 0) {
 
-                throw new Exception("Invalid number entered!");
+                throw new RuntimeException("Invalid number entered!");
 
             }
 
@@ -49,9 +49,9 @@ public class BigNumber {
     /**
      *
      * @param number String of the number.
-     * @throws Exception If string is invalid or can't cast to digits.
+     * @throws RuntimeException If string is invalid or can't cast to digits.
      */
-    public BigNumber(String number) throws Exception {
+    public BigNumber(String number) throws RuntimeException {
 
         byte symbol = 1;
         int stringLength = number.length();
@@ -76,7 +76,7 @@ public class BigNumber {
 
             if (!Character.isDigit(tempChar)) {
 
-                throw new Exception("Invalid number entered!");
+                throw new RuntimeException("Invalid number entered!");
             }
 
             temp[i] = (byte) (((byte) (Integer.parseInt(tempChar + ""))) * symbol);
@@ -230,11 +230,23 @@ public class BigNumber {
 
     }
 
-    public BigNumber getNegative() {
+    /**
+     *
+     * @return Negative BigNumber of number.
+     */
+    public BigNumber getNegative() throws RuntimeException {
+        byte[] tempData = this.data.clone();
 
-        return null;
+        for (int i = 0; i < tempData.length; i++) {
+            tempData[i] *= -1;
+        }
+
+        BigNumber negative = new BigNumber(tempData);
+
+        return negative;
     }
 
+    @Override
     public String toString() {
 
         String out = "";
