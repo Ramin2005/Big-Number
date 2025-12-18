@@ -1,8 +1,11 @@
 
+import java.util.function.BinaryOperator;
+import javax.sound.midi.SysexMessage;
+
 /**
- * The BigNumber class is designed to store and compute integers with
- * virtually unlimited length, supporting numbers with millions of digits
- * far beyond standard data type limits. It provides reliable arithmetic operations,
+ * The BigNumber class is designed to store and compute integers with virtually
+ * unlimited length, supporting numbers with millions of digits far beyond
+ * standard data type limits. It provides reliable arithmetic operations,
  * precise comparisons, and efficient handling of very large values.
  */
 public class BigNumber {
@@ -23,8 +26,8 @@ public class BigNumber {
 
     /**
      *
-     * @param data List of digits.
-     * @throws RuntimeException If data is invalid.
+     * @param data List of digit
+     * @throws RuntimeException If data is invalid
      */
     public BigNumber(byte[] data) throws RuntimeException {
 
@@ -40,16 +43,31 @@ public class BigNumber {
 
         }
 
-        this.data = data.clone();
-        this.length = data.length;
-        this.isPositive = symbol >= 0;
+        int i = 0;
+        int j = data.length;
 
+        while (i < j) {
+            if (data[i] == 0) {
+                ++i;
+            } else {
+                break;
+            }
+        }
+
+        byte[] temp = new byte[j - i];
+        for (int k = 0; k < j - i; k++) {
+            temp[k] = data[k + i];
+        }
+
+        this.data = temp.clone();
+        this.length = j - i + 1;
+        this.isPositive = symbol >= 0;
     }
 
     /**
      *
-     * @param number String of the number.
-     * @throws RuntimeException If string is invalid or can't cast to digits.
+     * @param number String of the number
+     * @throws RuntimeException If string is invalid or can't cast to digits
      */
     public BigNumber(String number) throws RuntimeException {
 
@@ -90,7 +108,7 @@ public class BigNumber {
 
     /**
      *
-     * @param number Integer of the number.
+     * @param number Integer of the number
      */
     public BigNumber(int number) {
 
@@ -126,7 +144,7 @@ public class BigNumber {
 
     /**
      *
-     * @param number Long integer of the number.
+     * @param number Long integer of the number
      */
     public BigNumber(long number) {
 
@@ -165,7 +183,7 @@ public class BigNumber {
      *
      * Shift the number n digits to the left(multiply number to 10^n).
      *
-     * @param n Number of shift digits.
+     * @param n Number of shift digits
      */
     public void shiftL(int n) {
 
@@ -194,7 +212,7 @@ public class BigNumber {
      *
      * Shift the number n digits to the right(divide number by 10^n).
      *
-     * @param n Number of shift digits.
+     * @param n Number of shift digits
      */
     public void shiftR(int n) {
 
@@ -232,7 +250,7 @@ public class BigNumber {
 
     /**
      *
-     * @return Negative BigNumber of number.
+     * @return Negative BigNumber of number
      */
     public BigNumber getNegative() throws RuntimeException {
         byte[] tempData = this.data.clone();
@@ -248,7 +266,7 @@ public class BigNumber {
 
     /**
      *
-     * @return String of number.
+     * @return String of number
      */
     @Override
     public String toString() {
@@ -274,4 +292,16 @@ public class BigNumber {
         return out;
     }
 
+    // static methods and constructor:
+    /**
+     *
+     * Calculate sum of number one and number two(a + b).
+     *
+     * @param a BigNumber number one
+     * @param b BigNumber number two
+     * @return Sum of BigNumbers one & two
+     */
+    public static BigNumber sum(BigNumber a, BigNumber b) {
+
+    }
 }
