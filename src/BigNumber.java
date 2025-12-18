@@ -1,7 +1,4 @@
 
-import java.util.function.BinaryOperator;
-import javax.sound.midi.SysexMessage;
-
 /**
  * The BigNumber class is designed to store and compute integers with virtually
  * unlimited length, supporting numbers with millions of digits far beyond
@@ -15,7 +12,8 @@ public class BigNumber {
     private int length;
     private boolean isPositive = true;
 
-    // non-static methods and constructor:
+    // non-static methods and constructors:
+    // non-static constructors:
     /**
      *
      * Default constructor.
@@ -206,6 +204,69 @@ public class BigNumber {
 
     }
 
+    // non-static methods:
+    /**
+     * Returns copy of data array;
+     *
+     * @return byte array - Copy of data
+     */
+    public byte[] getData() {
+        return this.data.clone();
+    }
+
+    /**
+     * Returns true if number is positive, zero or null else returns false;
+     *
+     * @return boolean
+     */
+    public boolean isPositive() {
+        return this.isPositive;
+    }
+
+    /**
+     *
+     * @return Negative BigNumber of number
+     */
+    public BigNumber getNegative() throws RuntimeException {
+        byte[] tempData = this.data.clone();
+
+        for (int i = 0; i < tempData.length; i++) {
+            tempData[i] *= -1;
+        }
+
+        BigNumber negative = new BigNumber(tempData);
+
+        return negative;
+    }
+
+    /**
+     *
+     * @return String of number
+     */
+    @Override
+    public String toString() {
+
+        String out = "";
+
+        if (this.length != 0) {
+
+            if (!this.isPositive) {
+
+                out = "-";
+
+            }
+
+        }
+
+        for (int digit : this.data) {
+
+            out = out + (Math.abs(digit));
+
+        }
+
+        return out;
+    }
+
     /**
      *
      * Shift the number n digits to the left(multiply number to 10^n).
@@ -275,50 +336,6 @@ public class BigNumber {
 
     }
 
-    /**
-     *
-     * @return Negative BigNumber of number
-     */
-    public BigNumber getNegative() throws RuntimeException {
-        byte[] tempData = this.data.clone();
-
-        for (int i = 0; i < tempData.length; i++) {
-            tempData[i] *= -1;
-        }
-
-        BigNumber negative = new BigNumber(tempData);
-
-        return negative;
-    }
-
-    /**
-     *
-     * @return String of number
-     */
-    @Override
-    public String toString() {
-
-        String out = "";
-
-        if (this.length != 0) {
-
-            if (!this.isPositive) {
-
-                out = "-";
-
-            }
-
-        }
-
-        for (int digit : this.data) {
-
-            out = out + (Math.abs(digit));
-
-        }
-
-        return out;
-    }
-
     // static methods and constructor:
     /**
      *
@@ -329,6 +346,12 @@ public class BigNumber {
      * @return Sum of BigNumbers one & two
      */
     public static BigNumber sum(BigNumber a, BigNumber b) {
+        boolean symbolA = a.isPositive();
+        byte[] dataA = a.getData();
 
+        boolean symbolB = b.isPositive();
+        byte[] dataB = b.getData();
+
+        return null;
     }
 }
