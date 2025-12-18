@@ -7,7 +7,7 @@
  */
 public class BigNumber {
 
-    //non-static variables:
+    // non-static variables:
     private byte[] data;
     private int length;
     private boolean isPositive = true;
@@ -47,6 +47,7 @@ public class BigNumber {
     }
 
     /**
+     *
      * @param number String of the number.
      * @throws Exception If string is invalid or can't cast to digits.
      */
@@ -160,6 +161,12 @@ public class BigNumber {
 
     }
 
+    /**
+     *
+     * Shift the number n digits to the left(multiply number to 10^n).
+     *
+     * @param n Number of shift digits.
+     */
     public void shiftL(int n) {
 
         int oldLength = this.length;
@@ -173,12 +180,22 @@ public class BigNumber {
 
     }
 
+    /**
+     *
+     * Shift the number one digit to the left(multiply number to 10).
+     */
     public void shiftL() {
 
         this.shiftL(1);
 
     }
 
+    /**
+     *
+     * Shift the number n digits to the right(divide number by 10^n).
+     *
+     * @param n Number of shift digits.
+     */
     public void shiftR(int n) {
 
         int oldLength = this.length;
@@ -203,10 +220,19 @@ public class BigNumber {
 
     }
 
+    /**
+     *
+     * Shift the number one digits to the right(divide number by 10).
+     */
     public void shiftR() {
 
         this.shiftR(1);
 
+    }
+
+    public BigNumber getNegative() {
+
+        return null;
     }
 
     public String toString() {
