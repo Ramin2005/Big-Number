@@ -267,13 +267,14 @@ public class BigNumber {
         return out;
     }
 
+    // self shift methods: 
     /**
      *
      * Shift the number n digits to the left(multiply number to 10^n).
      *
      * @param n Number of shift digits
      */
-    public void shiftL(int n) {
+    public void selfShiftL(int n) {
 
         int oldLength = this.length;
         int newLength = oldLength + n;
@@ -290,9 +291,9 @@ public class BigNumber {
      *
      * Shift the number one digit to the left(multiply number to 10).
      */
-    public void shiftL() {
+    public void selfShiftL() {
 
-        this.shiftL(1);
+        this.selfShiftL(1);
 
     }
 
@@ -302,7 +303,7 @@ public class BigNumber {
      *
      * @param n Number of shift digits
      */
-    public void shiftR(int n) {
+    public void selfShiftR(int n) {
 
         int oldLength = this.length;
         int newLength = oldLength - n;
@@ -330,9 +331,74 @@ public class BigNumber {
      *
      * Shift the number one digits to the right(divide number by 10).
      */
-    public void shiftR() {
+    public void selfShiftR() {
 
-        this.shiftR(1);
+        this.selfShiftR(1);
+
+    }
+
+    // self shift methods: 
+    /**
+     *
+     * Shift the number n digits to the left(multiply number to 10^n).
+     *
+     * @param n Number of shift digits
+     */
+    public BigNumber shiftL(int n) {
+
+        int oldLength = this.length;
+        int newLength = oldLength + n;
+        byte[] newData = new byte[newLength];
+
+        System.arraycopy(this.data, 0, newData, 0, oldLength);
+
+        return new BigNumber(newData);
+    }
+
+    /**
+     *
+     * Shift the number one digit to the left(multiply number to 10).
+     */
+    public BigNumber shiftL() {
+
+        return this.shiftL(1);
+
+    }
+
+    /**
+     *
+     * Shift the number n digits to the right(divide number by 10^n).
+     *
+     * @param n Number of shift digits
+     */
+    public BigNumber shiftR(int n) {
+
+        int oldLength = this.length;
+        int newLength = oldLength - n;
+
+        if (newLength < 1) {
+
+            return new BigNumber();
+
+        } else {
+
+            byte[] newData = new byte[newLength];
+
+            System.arraycopy(this.data, 0, newData, 0, newLength);
+
+            return new BigNumber(newData);
+
+        }
+
+    }
+
+    /**
+     *
+     * Shift the number one digits to the right(divide number by 10).
+     */
+    public BigNumber shiftR() {
+
+        return this.shiftR(1);
 
     }
 
