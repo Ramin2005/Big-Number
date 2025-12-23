@@ -461,7 +461,7 @@ public class BigNumber {
 
     }
 
-    // self shift methods: 
+    // returning shift methods: 
     /**
      *
      * Shift the number n digits to the left(multiply number to 10^n).
@@ -469,14 +469,18 @@ public class BigNumber {
      * @param n Number of shift digits
      */
     public BigNumber shiftL(int n) {
-
+        // get old length
         int oldLength = this.length;
+        // new length
         int newLength = oldLength + n;
+        // declare new data list 
         byte[] newData = new byte[newLength];
 
+        // copying all list data to the left of new list
         System.arraycopy(this.data, 0, newData, 0, oldLength);
 
         return new BigNumber(newData);
+
     }
 
     /**
@@ -485,6 +489,7 @@ public class BigNumber {
      */
     public BigNumber shiftL() {
 
+        // call shift left method with argument 1 to return one digit shifted to the left number
         return this.shiftL(1);
 
     }
@@ -497,19 +502,26 @@ public class BigNumber {
      */
     public BigNumber shiftR(int n) {
 
+        // get old length
         int oldLength = this.length;
+        // new lengths
         int newLength = oldLength - n;
 
+        // checking for new length must be greater than zero
         if (newLength < 1) {
 
+            // returning null BigNumber
             return new BigNumber();
 
         } else {
 
+            // declare new data list 
             byte[] newData = new byte[newLength];
 
+            // copying data 
             System.arraycopy(this.data, 0, newData, 0, newLength);
 
+            // returning BigNumber with new data list
             return new BigNumber(newData);
 
         }
@@ -522,6 +534,7 @@ public class BigNumber {
      */
     public BigNumber shiftR() {
 
+        // call shift right method with argument 1 to return one digit shifted to the right number
         return this.shiftR(1);
 
     }
