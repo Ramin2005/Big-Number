@@ -186,13 +186,18 @@ public class BigNumber {
      */
     public BigNumber(int number) {
 
+        // converting integer to string for extracting data
         String stringNumber = number + "";
         byte symbol = 1;
+
+        // pointer and counters for restoring start and end position
         int stringLength = stringNumber.length();
         int i = 0;
 
+        // checking for number is not empty or null
         if (stringLength > 0) {
 
+            // if number is negative moving pointer and set symbol negative
             if (stringNumber.charAt(0) == '-') {
 
                 symbol = -1;
@@ -222,13 +227,18 @@ public class BigNumber {
      */
     public BigNumber(long number) {
 
+        // converting long to string for extracting data
         String stringNumber = number + "";
         byte symbol = 1;
+
+        // pointer and counters for restoring start and end position
         int stringLength = stringNumber.length();
         int i = 0;
 
+        // checking for number is not empty or null
         if (stringLength > 0) {
 
+            // if number is negative moving pointer and set symbol negative
             if (stringNumber.charAt(0) == '-') {
 
                 symbol = -1;
