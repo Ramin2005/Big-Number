@@ -555,6 +555,7 @@ public class BigNumber {
         boolean symbolB = b.isPositive();
         byte[] dataB = b.getData();
 
+        
         return null;
     }
 }
