@@ -294,7 +294,10 @@ public class BigNumber {
      * @return byte array - Copy of data
      */
     public byte[] getData() {
+
+        // returning clone of list
         return this.data.clone();
+
     }
 
     /**
@@ -303,7 +306,10 @@ public class BigNumber {
      * @return boolean
      */
     public boolean isPositive() {
+
+        // returning positive 
         return this.isPositive;
+
     }
 
     /**
@@ -311,15 +317,24 @@ public class BigNumber {
      * @return Negative BigNumber of number
      */
     public BigNumber getNegative() throws RuntimeException {
+
+        // get clone of data
         byte[] tempData = this.data.clone();
 
+        // setting negative each digit
         for (int i = 0; i < tempData.length; i++) {
+
+            // setting negative
             tempData[i] *= -1;
+
         }
 
+        // get BigNumber of negative list
         BigNumber negative = new BigNumber(tempData);
 
+        // returning negative obj
         return negative;
+
     }
 
     /**
@@ -329,25 +344,33 @@ public class BigNumber {
     @Override
     public String toString() {
 
+        // declare out string
         String out = "";
 
+        // checking for number is null
         if (this.length != 0) {
 
+            // checking symbol
             if (!this.isPositive) {
 
+                // add '-' to end of string
                 out = "-";
 
             }
 
         }
 
+        // adding each digit to right of out string
         for (int digit : this.data) {
 
+            // adding absolute of digit to right of out string
             out = out + (Math.abs(digit));
 
         }
 
+        // returning out string
         return out;
+
     }
 
     // self shift methods: 
