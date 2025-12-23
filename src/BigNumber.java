@@ -41,9 +41,11 @@ public class BigNumber {
 
         }
 
+        // pointer and counters for restoring start and end position
         int i = 0;
         int j = data.length;
 
+        // moving pointer for remove zero digits from the of list 
         while (i < j) {
 
             if (data[i] == 0) {
@@ -58,10 +60,13 @@ public class BigNumber {
 
         }
 
+        // temp list for copying data
         byte[] temp = new byte[j - i];
 
+        // copying list data
         for (int k = 0; k < j - i; k++) {
 
+            // copying data
             temp[k] = data[k + i];
 
         }
@@ -79,6 +84,8 @@ public class BigNumber {
     public BigNumber(String number) throws RuntimeException {
 
         byte symbol = 1;
+
+        // pointer and counters for restoring start and end position
         int stringLength = number.length();
         int i = 0;
 
@@ -93,16 +100,31 @@ public class BigNumber {
 
         }
 
+        // moving pointer for remove zero digits from the of list 
+        // checking for number is not empty or null
         if (stringLength - i > 0) {
 
             while (i < stringLength) {
 
-                if (number.charAt(i) == '0') {
+                // get character at index i
+                char tempChar = number.charAt(i);
 
+                // checking char to be digit
+                if (!Character.isDigit(tempChar)) {
+
+                    // throw exception
+                    throw new RuntimeException("Invalid number entered!");
+
+                }
+                // checking 
+                if (tempChar == '0') {
+
+                    // moving pointer
                     ++i;
 
                 } else {
 
+                    // break while statement
                     break;
 
                 }
@@ -111,20 +133,28 @@ public class BigNumber {
 
         }
 
+        // temp list for copying data
         byte[] temp = new byte[stringLength - i];
 
+        // extract and copying list data
         for (int k = 0; k < stringLength - i; k++) {
 
+            // get character at index i + k
             char tempChar = number.charAt(i + k);
 
+            // checking char to be digit
             if (!Character.isDigit(tempChar)) {
 
+                // throw exception
                 throw new RuntimeException("Invalid number entered!");
+
             }
 
+            // extracting and copying data
             temp[k] = (byte) (((byte) (Integer.parseInt(tempChar + ""))) * symbol);
         }
 
+        // cloning list data, length and symbol
         this.data = temp.clone();
         this.length = temp.length;
         this.isPositive = symbol > 0;
