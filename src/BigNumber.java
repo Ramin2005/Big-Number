@@ -108,8 +108,8 @@ public class BigNumber {
 
                 // set symbol
                 symbol = -1;
-                // moving pointer 
 
+                // moving pointer 
                 i = 1;
 
             }
@@ -200,24 +200,36 @@ public class BigNumber {
             // if number is negative moving pointer and set symbol negative
             if (stringNumber.charAt(0) == '-') {
 
+                // set symbol
                 symbol = -1;
+
+                // moving pointer 
                 i = 1;
 
             }
 
         }
 
+        // temp list for copying data
         byte[] temp = new byte[length];
 
+        // extract and copying list data
         for (; i < stringLength; i++) {
 
+            // get character at index i
             char tempChar = stringNumber.charAt(i);
+
+            // extracting and copying data
             temp[i] = (byte) (((byte) (Integer.parseInt(tempChar + ""))) * symbol);
 
         }
 
+        // cloning and setting list data, length and symbol
+        // clone data list
         this.data = temp.clone();
+        // set number length
         this.length = stringLength - 1;
+        // set symbol
         this.isPositive = symbol > 0;
     }
 
@@ -241,24 +253,36 @@ public class BigNumber {
             // if number is negative moving pointer and set symbol negative
             if (stringNumber.charAt(0) == '-') {
 
+                // set symbol
                 symbol = -1;
+
+                // moving pointer 
                 i = 1;
 
             }
 
         }
 
+        // temp list for copying data
         byte[] temp = new byte[length];
 
+        // extract and copying list data
         for (; i < stringLength; i++) {
 
+            // get character at index i
             char tempChar = stringNumber.charAt(i);
+
+            // extracting and copying data
             temp[i] = (byte) (((byte) (Integer.parseInt(tempChar + ""))) * symbol);
 
         }
 
+        // cloning and setting list data, length and symbol
+        // clone data list
         this.data = temp.clone();
+        // set number length
         this.length = stringLength - 1;
+        // set symbol
         this.isPositive = symbol > 0;
 
     }
