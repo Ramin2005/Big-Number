@@ -405,6 +405,7 @@ public class BigNumber {
      */
     public void selfShiftL() {
 
+        // call self shift left method with argument 1 to shift the number one digit to the left
         this.selfShiftL(1);
 
     }
@@ -417,22 +418,32 @@ public class BigNumber {
      */
     public void selfShiftR(int n) {
 
+        // get old length
         int oldLength = this.length;
+        // new lengths
         int newLength = oldLength - n;
 
+        // checking for new length must be greater than zero
         if (newLength < 1) {
 
+            // set data list null
             this.data = null;
+            // set length zero
             this.length = 0;
+            // set positive symbol true
             this.isPositive = true;
 
         } else {
 
+            // declare new data list 
             byte[] newData = new byte[newLength];
 
+            // copying data 
             System.arraycopy(this.data, 0, newData, 0, newLength);
 
+            // set data list
             this.data = newData.clone();
+            // set new size
             this.length = newLength;
 
         }
@@ -445,6 +456,7 @@ public class BigNumber {
      */
     public void selfShiftR() {
 
+        // call self shift right method with argument 1 to shift the number one digit to the right
         this.selfShiftR(1);
 
     }
