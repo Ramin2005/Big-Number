@@ -29,12 +29,16 @@ public class BigNumber {
      */
     public BigNumber(byte[] data) throws RuntimeException {
 
+        // set symbol
         int symbol = (data.length == 0) ? 0 : ((data[0] < 0) ? -1 : 1);
 
+        // validation list
         for (byte digit : data) {
 
+            // checking is digit has be between -9 and 9
             if (digit > 9 || digit < -9 || symbol * digit < 0) {
 
+                // throw exception if a digit not be between -9 and 9
                 throw new RuntimeException("Invalid number entered!");
 
             }
@@ -50,10 +54,12 @@ public class BigNumber {
 
             if (data[i] == 0) {
 
+                // moving pointer
                 ++i;
 
             } else {
 
+                // break while statement
                 break;
 
             }
@@ -71,9 +77,14 @@ public class BigNumber {
 
         }
 
+        // cloning and setting list data, length and symbol
+        // clone data list
         this.data = temp.clone();
+        // set number length
         this.length = j - i + 1;
+        // set symbol
         this.isPositive = symbol >= 0;
+
     }
 
     /**
@@ -89,11 +100,16 @@ public class BigNumber {
         int stringLength = number.length();
         int i = 0;
 
+        // checking for number is not empty or null
         if (stringLength > 0) {
 
+            // if number is negative moving pointer and set symbol negative
             if (number.charAt(0) == '-') {
 
+                // set symbol
                 symbol = -1;
+                // moving pointer 
+
                 i = 1;
 
             }
@@ -154,9 +170,12 @@ public class BigNumber {
             temp[k] = (byte) (((byte) (Integer.parseInt(tempChar + ""))) * symbol);
         }
 
-        // cloning list data, length and symbol
+        // cloning and setting list data, length and symbol
+        // clone data list
         this.data = temp.clone();
+        // set number length
         this.length = temp.length;
+        // set symbol
         this.isPositive = symbol > 0;
 
     }
