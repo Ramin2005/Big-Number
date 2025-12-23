@@ -382,13 +382,19 @@ public class BigNumber {
      */
     public void selfShiftL(int n) {
 
+        // get old length
         int oldLength = this.length;
+        // new length
         int newLength = oldLength + n;
+        // declare new data list 
         byte[] newData = new byte[newLength];
 
+        // copying all list data to the left of new list
         System.arraycopy(this.data, 0, newData, 0, oldLength);
 
+        // set data list
         this.data = newData.clone();
+        // set new size
         this.length = newLength;
 
     }
