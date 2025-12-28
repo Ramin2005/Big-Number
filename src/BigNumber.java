@@ -27,16 +27,13 @@ public class BigNumber {
      * @param data List of digit
      * @throws RuntimeException If data is invalid
      */
-    public BigNumber(byte[] data) throws RuntimeException {
-
-        // set symbol
-        int symbol = (data.length == 0) ? 0 : ((data[0] < 0) ? -1 : 1);
+    public BigNumber(boolean isPositive, byte[] data) throws RuntimeException {
 
         // validation list
         for (byte digit : data) {
 
             // checking is digit has be between -9 and 9
-            if (digit > 9 || digit < -9 || symbol * digit < 0) {
+            if (digit > 9 || digit < 0) {
 
                 // throw exception if a digit not be between -9 and 9
                 throw new RuntimeException("Invalid number entered!");
@@ -83,7 +80,7 @@ public class BigNumber {
         // set number length
         this.length = j - i + 1;
         // set symbol
-        this.isPositive = symbol >= 0;
+        this.isPositive = isPositive;
 
     }
 
@@ -167,7 +164,7 @@ public class BigNumber {
             }
 
             // extracting and copying data
-            temp[k] = (byte) (((byte) (Integer.parseInt(tempChar + ""))) * symbol);
+            temp[k] = (byte) Integer.parseInt(tempChar + "");
         }
 
         // cloning and setting list data, length and symbol
@@ -220,7 +217,7 @@ public class BigNumber {
             char tempChar = stringNumber.charAt(i);
 
             // extracting and copying data
-            temp[i] = (byte) (((byte) (Integer.parseInt(tempChar + ""))) * symbol);
+            temp[i] = (byte) Integer.parseInt(tempChar + "");
 
         }
 
@@ -273,7 +270,7 @@ public class BigNumber {
             char tempChar = stringNumber.charAt(i);
 
             // extracting and copying data
-            temp[i] = (byte) (((byte) (Integer.parseInt(tempChar + ""))) * symbol);
+            temp[i] = (byte) Integer.parseInt(tempChar + "");
 
         }
 
@@ -330,7 +327,7 @@ public class BigNumber {
         }
 
         // get BigNumber of negative list
-        BigNumber negative = new BigNumber(tempData);
+        BigNumber negative = new BigNumber(this.isPositive, tempData);
 
         // returning negative obj
         return negative;
@@ -479,7 +476,7 @@ public class BigNumber {
         // copying all list data to the left of new list
         System.arraycopy(this.data, 0, newData, 0, oldLength);
 
-        return new BigNumber(newData);
+        return new BigNumber(this.isPositive, newData);
 
     }
 
@@ -522,7 +519,7 @@ public class BigNumber {
             System.arraycopy(this.data, 0, newData, 0, newLength);
 
             // returning BigNumber with new data list
-            return new BigNumber(newData);
+            return new BigNumber(this.isPositive, newData);
 
         }
 
@@ -555,7 +552,6 @@ public class BigNumber {
         boolean symbolB = b.isPositive();
         byte[] dataB = b.getData();
 
-        
         return null;
     }
 }
