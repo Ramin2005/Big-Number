@@ -24,7 +24,7 @@ public class BigNumber {
 
     /**
      *
-     * @param data List of digit
+     * @param data - List of digit
      * @throws RuntimeException If data is invalid
      */
     public BigNumber(boolean isPositive, byte[] data) throws RuntimeException {
@@ -86,7 +86,7 @@ public class BigNumber {
 
     /**
      *
-     * @param number String of the number
+     * @param number - String of the number
      * @throws RuntimeException If string is invalid or can't cast to digits
      */
     public BigNumber(String number) throws RuntimeException {
@@ -375,7 +375,7 @@ public class BigNumber {
      *
      * Shift the number n digits to the left(multiply number to 10^n).
      *
-     * @param n Number of shift digits
+     * @param n - Number of shift digits
      */
     public void selfShiftL(int n) {
 
@@ -411,7 +411,7 @@ public class BigNumber {
      *
      * Shift the number n digits to the right(divide number by 10^n).
      *
-     * @param n Number of shift digits
+     * @param n - Number of shift digits
      */
     public void selfShiftR(int n) {
 
@@ -463,7 +463,7 @@ public class BigNumber {
      *
      * Shift the number n digits to the left(multiply number to 10^n).
      *
-     * @param n Number of shift digits
+     * @param n - Number of shift digits
      */
     public BigNumber shiftL(int n) {
         // get old length
@@ -495,7 +495,7 @@ public class BigNumber {
      *
      * Shift the number n digits to the right(divide number by 10^n).
      *
-     * @param n Number of shift digits
+     * @param n - Number of shift digits
      */
     public BigNumber shiftR(int n) {
 
@@ -536,13 +536,111 @@ public class BigNumber {
 
     }
 
-    // static methods and constructor:
+    // static methods:
+    /**
+     *
+     * Compares BigNumber A and BigNumber B, returns true if A is greater than
+     * or equals B else returns false.
+     *
+     * @param a - BigNumber A
+     * @param b - BigNumber B
+     * @return boolean - returns true if A is greater than or equals B else
+     * returns false
+     */
+    public static boolean compareAGreaterB(BigNumber a, BigNumber b) {
+
+        boolean symbolA = a.isPositive();
+        byte[] dataA = a.getData();
+
+        boolean symbolB = b.isPositive();
+        byte[] dataB = b.getData();
+
+        // if a is positive and b is negative
+        if (symbolA && !symbolB) {
+
+            return true;
+
+        } // if a is negative and b is positive
+        else if (!symbolA && symbolB) {
+
+            return false;
+
+        } // if a and b both them are positive
+        else if (symbolA && symbolB) {
+
+            if (dataA.length > dataB.length) {
+
+                return true;
+
+            } else if (dataA.length < dataB.length) {
+
+                return false;
+
+            } else {
+
+                for (int i = 0; i < dataA.length; i++) {
+
+                    if (dataA[i] < dataB[i]) {
+
+                        return false;
+
+                    }
+
+                    if (dataA[i] > dataB[i]) {
+
+                        return true;
+
+                    }
+
+                }
+
+                return true;
+
+            }
+
+        } // if a and b both them are negative
+        else {
+
+            if (dataA.length > dataB.length) {
+
+                return false;
+
+            } else if (dataA.length < dataB.length) {
+
+                return true;
+
+            } else {
+
+                for (int i = 0; i < dataA.length; i++) {
+
+                    if (dataA[i] < dataB[i]) {
+
+                        return true;
+
+                    }
+
+                    if (dataA[i] > dataB[i]) {
+
+                        return false;
+
+                    }
+
+                }
+
+                return true;
+
+            }
+
+        }
+
+    }
+
     /**
      *
      * Calculate sum of number one and number two(a + b).
      *
-     * @param a BigNumber number one
-     * @param b BigNumber number two
+     * @param a - BigNumber number one
+     * @param b - BigNumber number two
      * @return Sum of BigNumbers one & two
      */
     public static BigNumber sum(BigNumber a, BigNumber b) {
@@ -551,6 +649,12 @@ public class BigNumber {
 
         boolean symbolB = b.isPositive();
         byte[] dataB = b.getData();
+
+        // get max of new length
+        int maxLength = (dataA.length > dataB.length ? dataA.length : dataB.length) + 1;
+        byte[] newData = new byte[maxLength];
+
+        int care = 0;
 
         return null;
     }
