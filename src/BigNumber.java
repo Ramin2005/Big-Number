@@ -536,6 +536,12 @@ public class BigNumber {
 
     }
 
+    public BigNumber getAbs() {
+        byte[] copyData = getData();
+
+        return new BigNumber(true, copyData);
+    }
+
     // static methods:
     /**
      *
