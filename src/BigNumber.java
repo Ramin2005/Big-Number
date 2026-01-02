@@ -702,11 +702,12 @@ public class BigNumber {
         boolean symbolB = b.isPositive();
         byte[] dataB = b.getData();
 
-        // get max of new length
-        int maxLength = (dataA.length > dataB.length ? dataA.length : dataB.length) + 1;
-        byte[] newData = new byte[maxLength];
-
+        // if have same symbol
         if (symbolA == symbolB) {
+
+            // get max of new length
+            int maxLength = (dataA.length > dataB.length ? dataA.length : dataB.length) + 1;
+            byte[] newData = new byte[maxLength];
 
             // change lists if length A is greater than B
             if (dataA.length > dataB.length) {
@@ -726,22 +727,61 @@ public class BigNumber {
 
             }
 
-            byte care = 0;
+            // carry value
+            byte carry = 0;
+
+            // sum two lists
             for (int i = maxLength - 1; i > 0; i--) {
 
-                int sum = (byte) (newData[i] + dataB[i - 1] + care);
-                care = (byte) (sum / 10);
+                int sum = (byte) (newData[i] + dataB[i - 1] + carry);
+                carry = (byte) (sum / 10);
                 newData[i] = (byte) (sum % 10);
 
             }
 
-            newData[0] = care;
+            // last digit carry set
+            newData[0] = carry;
 
+            // return result
             return new BigNumber(symbolA, newData);
+
+        } else {
+
+            // get max abs number
+            boolean flag = absCompareAGreaterB(a, b);
+
+            // change lists if length A is greater than B
+            if (!flag) {
+
+                byte[] temp = dataA.clone();
+                dataA = dataB.clone();
+                dataB = temp;
+
+            }
+
+            // carry value 
+            byte carry = 0;
+            int temp = dataA.length - dataB.length;
+
+            for (int i = dataA.length - 1; i >= temp; i--) {
+
+                byte mines = (byte) (dataA[i] - dataB[i - temp] - carry);
+                carry = (byte) ((mines < 0) ? 1 : 0);
+                dataA[i] = (byte) (mines % 10);
+
+            }
+
+            for (int i = temp - 1; i > -1; i--) {
+
+                byte mines = (byte) (dataA[i] - carry);
+                carry = (byte) ((mines < 0) ? 1 : 0);
+                dataA[i] = (byte) (mines % 10);
+
+            }
+
+            // return result
+            return new BigNumber(flag && symbolA, dataA);
+
         }
-
-        boolean flag = absCompareAGreaterB(a, b);
-
-        return null;
     }
 }
