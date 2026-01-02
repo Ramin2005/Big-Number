@@ -643,6 +643,52 @@ public class BigNumber {
 
     /**
      *
+     * Compares absolute of BigNumber A and absolute of BigNumber B, returns
+     * true if A is greater than or equals B else returns false.
+     *
+     * @param a - BigNumber A
+     * @param b - BigNumber B
+     * @return boolean - returns true if absolute of A is greater than or equals
+     * absolute of B else returns false
+     */
+    public static boolean absCompareAGreaterB(BigNumber a, BigNumber b) {
+
+        byte[] dataA = a.getData();
+
+        byte[] dataB = b.getData();
+
+        if (dataA.length > dataB.length) {
+
+            return true;
+
+        } else if (dataA.length < dataB.length) {
+
+            return false;
+        } else {
+
+            for (int i = 0; i < dataA.length; i++) {
+
+                if (dataA[i] < dataB[i]) {
+
+                    return false;
+
+                }
+
+                if (dataA[i] > dataB[i]) {
+
+                    return true;
+
+                }
+
+            }
+
+            return true;
+        }
+
+    }
+
+    /**
+     *
      * Calculate sum of number one and number two(a + b).
      *
      * @param a - BigNumber number one
@@ -660,7 +706,41 @@ public class BigNumber {
         int maxLength = (dataA.length > dataB.length ? dataA.length : dataB.length) + 1;
         byte[] newData = new byte[maxLength];
 
-        int care = 0;
+        if (symbolA == symbolB) {
+
+            // change lists if length A is greater than B
+            if (dataA.length > dataB.length) {
+
+                byte[] temp = dataA.clone();
+                dataA = dataB.clone();
+                dataB = temp;
+
+            }
+
+            int temp = maxLength - dataA.length;
+
+            // copying small list
+            for (int i = maxLength - 1; i >= temp; i--) {
+
+                newData[i] = dataA[i - temp];
+
+            }
+
+            byte care = 0;
+            for (int i = maxLength - 1; i > 0; i--) {
+
+                int sum = (byte) (newData[i] + dataB[i - 1] + care);
+                care = (byte) (sum / 10);
+                newData[i] = (byte) (sum % 10);
+
+            }
+
+            newData[0] = care;
+
+            return new BigNumber(symbolA, newData);
+        }
+
+        boolean flag = absCompareAGreaterB(a, b);
 
         return null;
     }
