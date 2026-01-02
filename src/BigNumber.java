@@ -62,25 +62,32 @@ public class BigNumber {
             }
 
         }
+        if (j - i > 1) {
 
-        // temp list for copying data
-        byte[] temp = new byte[j - i];
+            // temp list for copying data
+            byte[] temp = new byte[j - i];
 
-        // copying list data
-        for (int k = 0; k < j - i; k++) {
+            // copying list data
+            for (int k = 0; k < j - i; k++) {
 
-            // copying data
-            temp[k] = data[k + i];
+                // copying data
+                temp[k] = data[k + i];
+
+            }
+
+            // cloning and setting list data, length and symbol
+            // clone data list
+            this.data = temp.clone();
+            // set number length
+            this.length = j - i + 1;
+            // set symbol
+            this.isPositive = isPositive;
+
+        } else {
+
+            this.length = 0;
 
         }
-
-        // cloning and setting list data, length and symbol
-        // clone data list
-        this.data = temp.clone();
-        // set number length
-        this.length = j - i + 1;
-        // set symbol
-        this.isPositive = isPositive;
 
     }
 
@@ -327,7 +334,7 @@ public class BigNumber {
         }
 
         // get BigNumber of negative list
-        BigNumber negative = new BigNumber(this.isPositive, tempData);
+        BigNumber negative = new BigNumber(!this.isPositive, tempData);
 
         // returning negative obj
         return negative;
