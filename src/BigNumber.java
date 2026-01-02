@@ -19,7 +19,15 @@ public class BigNumber {
      * Default constructor.
      */
     public BigNumber() {
-        this.length = 0;
+
+        // cloning and setting list data, length and symbol
+        // clone data list
+        this.data = new byte[1];
+        // set number length
+        this.length = 1;
+        // set symbol
+        this.isPositive = true;
+
     }
 
     /**
@@ -85,7 +93,13 @@ public class BigNumber {
 
         } else {
 
-            this.length = 0;
+            // cloning and setting list data, length and symbol
+            // clone data list
+            this.data = new byte[1];
+            // set number length
+            this.length = 1;
+            // set symbol
+            this.isPositive = true;
 
         }
 
@@ -110,6 +124,13 @@ public class BigNumber {
             // if number is negative moving pointer and set symbol negative
             if (number.charAt(0) == '-') {
 
+                if (stringLength == 1) {
+
+                    // throw exception
+                    throw new RuntimeException("Invalid number entered!");
+
+                }
+
                 // set symbol
                 symbol = -1;
 
@@ -118,12 +139,8 @@ public class BigNumber {
 
             }
 
-        }
-
-        // moving pointer for remove zero digits from the of list 
-        // checking for number is not empty or null
-        if (stringLength - i > 0) {
-
+            // moving pointer for remove zero digits from the of list 
+            // checking for number is not empty or null
             while (i < stringLength) {
 
                 // get character at index i
@@ -153,34 +170,48 @@ public class BigNumber {
 
         }
 
-        // temp list for copying data
-        byte[] temp = new byte[stringLength - i];
+        if (stringLength - i > 0) {
 
-        // extract and copying list data
-        for (int k = 0; k < stringLength - i; k++) {
+            // temp list for copying data
+            byte[] temp = new byte[stringLength - i];
 
-            // get character at index i + k
-            char tempChar = number.charAt(i + k);
+            // extract and copying list data
+            for (int k = 0; k < stringLength - i; k++) {
 
-            // checking char to be digit
-            if (!Character.isDigit(tempChar)) {
+                // get character at index i + k
+                char tempChar = number.charAt(i + k);
 
-                // throw exception
-                throw new RuntimeException("Invalid number entered!");
+                // checking char to be digit
+                if (!Character.isDigit(tempChar)) {
 
+                    // throw exception
+                    throw new RuntimeException("Invalid number entered!");
+
+                }
+
+                // extracting and copying data
+                temp[k] = (byte) Integer.parseInt(tempChar + "");
             }
 
-            // extracting and copying data
-            temp[k] = (byte) Integer.parseInt(tempChar + "");
-        }
+            // cloning and setting list data, length and symbol
+            // clone data list
+            this.data = temp.clone();
+            // set number length
+            this.length = temp.length;
+            // set symbol
+            this.isPositive = symbol > 0;
 
-        // cloning and setting list data, length and symbol
-        // clone data list
-        this.data = temp.clone();
-        // set number length
-        this.length = temp.length;
-        // set symbol
-        this.isPositive = symbol > 0;
+        } else {
+
+            // cloning and setting list data, length and symbol
+            // clone data list
+            this.data = new byte[1];
+            // set number length
+            this.length = 1;
+            // set symbol
+            this.isPositive = true;
+
+        }
 
     }
 
