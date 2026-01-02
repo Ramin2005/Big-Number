@@ -813,7 +813,7 @@ public class BigNumber {
 
                 byte mines = (byte) (dataA[i] - carry);
                 carry = (byte) ((mines < 0) ? 1 : 0);
-                dataA[i] = (byte) (mines % 10);
+                dataA[i] = (byte) ((mines + 10) % 10);
 
             }
 
