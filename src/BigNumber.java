@@ -771,7 +771,7 @@ public class BigNumber {
             // sum two lists
             for (int i = maxLength - 1; i > 0; i--) {
 
-                int sum = (byte) (newData[i] + dataB[i - 1] + carry);
+                int sum = newData[i] + dataB[i - 1] + carry;
                 carry = (byte) (sum / 10);
                 newData[i] = (byte) (sum % 10);
 
@@ -817,9 +817,12 @@ public class BigNumber {
 
             }
 
+            boolean symbol = flag ? symbolA : symbolB;
             // return result
-            return new BigNumber(flag && symbolA, dataA);
+            return new BigNumber(symbol, dataA);
 
         }
+
     }
+
 }
